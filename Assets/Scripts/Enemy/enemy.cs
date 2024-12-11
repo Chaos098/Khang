@@ -42,25 +42,6 @@ public class enemy : Entity
         Gizmos.color = Color.yellow;
         Gizmos.DrawLine(transform.position,new Vector3(transform.position.x + attackDistance * facingDir,transform.position.y));
     }
-    public void OpenCounterAttackWindow()
-    {
-        canBeStun = true;
-        counterImage.SetActive(true);
-    }
-    public void CloseCounterAttackWindow()
-    {
-        canBeStun=false;
-        counterImage.SetActive(false);
-    }
-    public virtual bool canBeStunned()
-    {
-        if (canBeStun)
-        {
-            CloseCounterAttackWindow();
-            return true;
-        }
-        return false;
-    }
     public virtual RaycastHit2D isPlayerDetected()=>Physics2D.Raycast(wallCheck.position,Vector2.right*facingDir,50,whatisPlayer);
     public virtual void AnimationFinishTriger()=>stateMachine.currentState.AnimationFinishTrigeer();
 }

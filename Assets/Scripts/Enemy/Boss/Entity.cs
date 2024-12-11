@@ -87,10 +87,6 @@ public class Entity : MonoBehaviour
         isKnocked = false;
     }
 
-    protected virtual void SetupZeroKnockbackPower()
-    {
-
-    }
 
     #region Velocity
     public void SetZeroVelocity()

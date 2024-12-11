@@ -30,7 +30,6 @@ public class CharacterStats : MonoBehaviour
     public System.Action onHealthChanged;
     public bool isDead { get; private set; }
     public bool isInvincible { get; private set; }
-    private bool isVulnerable;
 
     protected virtual void Start()
     {
@@ -62,7 +61,6 @@ public class CharacterStats : MonoBehaviour
         }
         else
         {
-            Debug.Log(_damage);
             DecreaseHealthBy(_damage);
         }
 
@@ -91,9 +89,6 @@ public class CharacterStats : MonoBehaviour
     protected virtual void DecreaseHealthBy(int _damage)
     {
 
-        if (isVulnerable)
-            _damage = Mathf.RoundToInt(_damage * 1.1f);
-
         currentHealth -= _damage;
 
         if (onHealthChanged != null)
@@ -105,11 +100,6 @@ public class CharacterStats : MonoBehaviour
         isDead = true;
     }
 
-    public void KillEntity()
-    {
-        if (!isDead)
-            Die();
-    }
 
     public void MakeInvincible(bool _invincible) => isInvincible = _invincible;
 
@@ -125,46 +115,6 @@ public class CharacterStats : MonoBehaviour
     }
 
 
-
-    public virtual void OnEvasion()
-    {
-
-    }
-
-    protected bool TargetCanAvoidAttack(CharacterStats _targetStats)
-    {
-        int totalEvasion = _targetStats.evasion + _targetStats.agility;
-
-
-        if (Random.Range(0, 100) < totalEvasion)
-        {
-            _targetStats.OnEvasion();
-            return true;
-        }
-
-        return false;
-    }
-
-    protected bool CanCrit()
-    {
-        int totalCriticalChance = critChance + agility;
-
-        if (Random.Range(0, 100) <= totalCriticalChance)
-        {
-            return true;
-        }
-
-
-        return false;
-    }
-
-    protected int CalculateCriticalDamage(int _damage)
-    {
-        float totalCritPower = (critPower + strength) * .01f;
-        float critDamage = _damage * totalCritPower;
-
-        return Mathf.RoundToInt(critDamage);
-    }
 
     public int GetMaxHealthValue()
     {
