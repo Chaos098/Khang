@@ -30,7 +30,6 @@ public class Boss : Entity
     [HideInInspector] public float lastTimeAttacked;
 
     public BossStateMachine stateMachine { get; private set; }
-    public EntityFX fx { get; private set; }
     private PlayerMove player;
     public string lastAnimBoolName { get; private set; }
     protected override void Awake()
@@ -45,7 +44,6 @@ public class Boss : Entity
     {
         base.Start();
 
-        fx = GetComponent<EntityFX>();
     }
 
     protected override void Update()
@@ -59,46 +57,6 @@ public class Boss : Entity
 
     public virtual void AssignLastAnimName(string _animBoolName) => lastAnimBoolName = _animBoolName;
 
-
-    public override void SlowEntityBy(float _slowPercentage, float _slowDuration)
-    {
-        moveSpeed = moveSpeed * (1 - _slowPercentage);
-        anim.speed = anim.speed * (1 - _slowPercentage);
-
-        Invoke("ReturnDefaultSpeed", _slowDuration);
-    }
-
-    protected override void ReturnDefaultSpeed()
-    {
-        base.ReturnDefaultSpeed();
-
-        moveSpeed = defaultMoveSpeed;
-    }
-
-    public virtual void FreezeTime(bool _timeFrozen)
-    {
-        if (_timeFrozen)
-        {
-            moveSpeed = 0;
-            anim.speed = 0;
-        }
-        else
-        {
-            moveSpeed = defaultMoveSpeed;
-            anim.speed = 1;
-        }
-    }
-
-    public virtual void FreezeTimeFor(float _duration) => StartCoroutine(FreezeTimerCoroutine(_duration));
-
-    protected virtual IEnumerator FreezeTimerCoroutine(float _seconds)
-    {
-        FreezeTime(true);
-
-        yield return new WaitForSeconds(_seconds);
-
-        FreezeTime(false);
-    }
 
     #region Counter Attack Window
     public virtual void OpenCounterAttackWindow()
