@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 205117480908275992}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.0200062, y: -0.8299998, z: 0}
+  m_LocalPosition: {x: -1.55, y: -1.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -196,7 +196,6 @@ GameObject:
   - component: {fileID: 6296234874804032518}
   - component: {fileID: 1801156404988550175}
   - component: {fileID: 3234718518377665853}
-  - component: {fileID: 5988110753905975203}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Boss
@@ -359,29 +358,6 @@ MonoBehaviour:
   hitMat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   hitFx: {fileID: 3840755032751004251}
   criticalHitFx: {fileID: 0}
---- !u!114 &5988110753905975203
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3840755032751004251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c0e1195e42d54277b0c06afa40698b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  strength: 30
-  agility: 0
-  intelligence: 0
-  evasion: 0
-  vitality: 0
-  damage: 0
-  critChance: 0
-  critPower: 0
-  maxHealth: 800
-  armor: 30
-  currentHealth: 0
 --- !u!1 &4360788688613260010
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,6 @@ public class UI_HealthBar : MonoBehaviour
     {
         //myTransform = GetComponent<RectTransform>();
         slider = GetComponentInChildren<Slider>();
-
         UpdateHealthUI();
     }
 

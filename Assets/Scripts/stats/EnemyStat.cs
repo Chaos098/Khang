@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class EnemyStat : CharacterStats
 {
-    private Boss enemy;
+    private enemy enemy;
 
     protected override void Start()
     {
 
         base.Start();
 
-        enemy = GetComponent<Boss>();
+        enemy = GetComponent<enemy>();
     }
 
     public override void TakeDamage(CharacterStats stats, int _damage)

@@ -122,7 +122,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.33333334
-    functionName: OpenCounterWindow
+    functionName: OpenCounterAttackWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
@@ -135,15 +135,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.46666667
-    functionName: CloseCounterWindow
+  - time: 1.1333333
+    functionName: triggerAnimation
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
   - time: 1.1333333
-    functionName: AnimationTrigger
+    functionName: CloseCounterAttackWindow
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

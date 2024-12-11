@@ -12,12 +12,12 @@ public class Entity : MonoBehaviour
     public SpriteRenderer sr { get; private set; }
     public CharacterStats stats { get; private set; }
     public CapsuleCollider2D cd { get; private set; }
+    public EntityFX fx { get; private set; }
     #endregion
 
     [Header("Knockback info")]
-    [SerializeField] protected Vector2 knockbackPower = new Vector2(2, 2);
-    [SerializeField] protected Vector2 knockbackOffset = new Vector2(.5f, 1);
-    [SerializeField] protected float knockbackDuration = .07f;
+    [SerializeField] protected Vector2 knockbackDirection;
+    [SerializeField] protected float knockbackDuration;
     protected bool isKnocked;
 
     [Header("Collision info")]
@@ -45,7 +45,7 @@ public class Entity : MonoBehaviour
         sr = GetComponentInChildren<SpriteRenderer>();
         anim = GetComponentInChildren<Animator>();
         rb = GetComponent<Rigidbody2D>();
-
+        fx = GetComponent<EntityFX>();
         stats = GetComponent<CharacterStats>();
         cd = GetComponent<CapsuleCollider2D>();
     }
@@ -77,20 +77,14 @@ public class Entity : MonoBehaviour
 
     }
 
-    public void SetupKnockbackPower(Vector2 _knockbackpower) => knockbackPower = _knockbackpower;
     protected virtual IEnumerator HitKnockback()
     {
         isKnocked = true;
 
-        float xOffset = Random.Range(knockbackOffset.x, knockbackOffset.y);
-
-
-        if (knockbackPower.x > 0 || knockbackPower.y > 0) // This line makes player immune to freeze effect when he takes hit
-            rb.velocity = new Vector2((knockbackPower.x + xOffset) * knockbackDir, 0f);
+        rb.velocity = new Vector2(knockbackDirection.x * -facingDir, knockbackDirection.y);
 
         yield return new WaitForSeconds(knockbackDuration);
         isKnocked = false;
-        SetupZeroKnockbackPower();
     }
 
     protected virtual void SetupZeroKnockbackPower()

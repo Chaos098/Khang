@@ -52,5 +52,15 @@ public class Fire : MonoBehaviour
                 stats.TakeDamage(stats, 20); // V? d?: damage = 20, damageType = "Fire"
             }
         }
+        if (collision.CompareTag("EnemySkeleton"))
+        {
+            Destroy(gameObject);
+            enemySkeleton boss = collision.GetComponent<enemySkeleton>();
+            CharacterStats stats = collision.GetComponent<CharacterStats>();
+            if (boss != null)
+            {
+                stats.TakeDamage(stats, 20); // V? d?: damage = 20, damageType = "Fire"
+            }
+        }
     }
 }

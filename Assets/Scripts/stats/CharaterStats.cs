@@ -47,18 +47,6 @@ public class CharacterStats : MonoBehaviour
     }
 
 
-    public void MakeVulnerableFor(float _duration) => StartCoroutine(VulnerableCorutine(_duration));
-
-    private IEnumerator VulnerableCorutine(float _duartion)
-    {
-        isVulnerable = true;
-
-        yield return new WaitForSeconds(_duartion);
-
-        isVulnerable = false;
-    }
-
-
 
 
     public virtual void TakeDamage(CharacterStats stats, int _damage)
