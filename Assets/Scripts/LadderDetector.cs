@@ -19,6 +19,7 @@ public class LadderDetector : MonoBehaviour
     {
         if (collision.GetComponent<Ladder>())
         {
+            Debug.Log("hilo");
             player.ClimbingAllowed = false;
         }
     }

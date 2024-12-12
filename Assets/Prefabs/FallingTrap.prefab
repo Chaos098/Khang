@@ -15,9 +15,9 @@ GameObject:
   - component: {fileID: 8276852011828789146}
   - component: {fileID: 7509985183443463506}
   - component: {fileID: 3867816903850362015}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: FallingTrap
-  m_TagString: Untagged
+  m_TagString: ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -221,7 +221,7 @@ MonoBehaviour:
   - {x: 0.5, y: -0.25, z: 0}
   m_ShapePathHash: 0
   m_Mesh: {fileID: 0}
-  m_InstanceId: -152442
+  m_InstanceId: -2232
   m_LocalBounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0.5, y: 0.25, z: 0}

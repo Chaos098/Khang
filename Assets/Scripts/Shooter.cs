@@ -10,6 +10,7 @@ public class Shooter : MonoBehaviour
     GameObject dustShootEffect;
 
     Animator gunEffect;
+    Fire damage;
 
 
     int totalWeapon;
@@ -32,12 +33,12 @@ public class Shooter : MonoBehaviour
     void Start()
     {
 
-
+        damage = bullet.GetComponent<Fire>();
         totalWeapon = weaponHolder.transform.childCount;
         guns = new GameObject[totalWeapon];
         amountBullets = new int[totalWeapon];
 
-        for (int i = 1; i < totalWeapon; i++)
+        for (int i = 2; i < totalWeapon; i++)
         {
             guns[i] = weaponHolder.transform.GetChild(i).gameObject;
             switch (guns[i].name)
@@ -49,16 +50,16 @@ public class Shooter : MonoBehaviour
                     amountBullets[i] = 24;
                     break;
                 case "Shotgun":
-                    amountBullets[i] = 9;
+                    amountBullets[i] = 6;
                     break;
             }
 
             guns[i].SetActive(false);
         }
 
-        guns[1].SetActive(true);
-        currentGun = guns[1];
-        currentIndexWeapon = 1;
+        guns[2].SetActive(true);
+        currentGun = guns[2];
+        currentIndexWeapon = 2;
         numberOfBullets.text = amountBullets[currentIndexWeapon].ToString();
         numberOfBulletsInventory.text = "MAX";
 
@@ -84,7 +85,7 @@ public class Shooter : MonoBehaviour
 
         // Change weapon
         SwapWeapon();
-
+        Debug.Log(bulletInventory["RiffleBullet"]);
 
 
         // Shooting action
@@ -93,7 +94,7 @@ public class Shooter : MonoBehaviour
             int index = 0;
 
             // Take amount of bullet of current gun
-            for (int i = 1; i < totalWeapon; i++)
+            for (int i = 2; i < totalWeapon; i++)
             {
                 if (guns[i].name.Equals(currentGun.name))
                 {
@@ -158,7 +159,7 @@ public class Shooter : MonoBehaviour
             // Create new weapon inventory
             guns = new GameObject[totalWeapon];
 
-            for (int i = 1; i < totalWeapon; i++)
+            for (int i = 2; i < totalWeapon; i++)
             {
                 guns[i] = weaponHolder.transform.GetChild(i).gameObject;
                 guns[i].SetActive(false);
@@ -168,7 +169,7 @@ public class Shooter : MonoBehaviour
             int[] tmpAmountBullets = new int[totalWeapon];
 
 
-            for (int i = 1; i < totalWeapon - 1; i++)
+            for (int i = 2; i < totalWeapon - 1; i++)
             {
                 tmpAmountBullets[i] = amountBullets[i];
             }
@@ -188,7 +189,7 @@ public class Shooter : MonoBehaviour
             // Transform the temporary bullet inventory to main bullet inventory
             amountBullets = new int[totalWeapon];
 
-            for (int i = 1; i < totalWeapon; i++)
+            for (int i = 2; i < totalWeapon; i++)
             {
                 amountBullets[i] = tmpAmountBullets[i];
             }
@@ -236,14 +237,14 @@ public class Shooter : MonoBehaviour
         {
             if (bulletName.Contains("RiffleBullet"))
             {
-                bulletInventory.Add("RiffleBullet", 2);
+                bulletInventory.Add("RiffleBullet", 12);
             }
         }
         else
         {
             if (bulletName.Contains("RiffleBullet"))
             {
-                int tmp = (int)bulletInventory["RiffleBullet"] + 2;
+                int tmp = (int)bulletInventory["RiffleBullet"] + 12;
                 bulletInventory["RiffleBullet"] = tmp;
             }
         }
@@ -262,7 +263,7 @@ public class Shooter : MonoBehaviour
         int index = 0, redundant = 0;
         if (Input.GetKeyDown(KeyCode.R) && currentGun.name == "Pistol")
         {
-            for (int i = 1; i < totalWeapon; i++)
+            for (int i = 2; i < totalWeapon; i++)
             {
                 if (guns[i].name.Equals(currentGun.name))
                 {
@@ -278,7 +279,7 @@ public class Shooter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R) && currentGun.name == "Shotgun")
         {
-            for (int i = 1; i < totalWeapon; i++)
+            for (int i = 2; i < totalWeapon; i++)
             {
                 if (guns[i].name.Equals(currentGun.name))
                 {
@@ -319,6 +320,50 @@ public class Shooter : MonoBehaviour
                 Debug.Log("Bullet is full !" + amountBullets[index]);
             }
         }
+
+        if (Input.GetKeyDown(KeyCode.R) && currentGun.name == "Riffle")
+        {
+            for (int i = 2; i < totalWeapon; i++)
+            {
+                if (guns[i].name.Equals(currentGun.name))
+                {
+                    index = i;
+                }
+            }
+
+            if (amountBullets[index] < 24)
+            {
+                foreach (string nameBullet in bulletInventory.Keys)
+                {
+                    if (nameBullet.Contains(currentGun.name) && (int)bulletInventory[nameBullet] > 0)
+                    {
+                        StartCoroutine(WaitForReload(2f, index, currentGun.name));
+
+                        if ((int)bulletInventory[nameBullet] >= 12)
+                            amountBullets[index] += 12;
+                        else
+                            amountBullets[index] += (int)bulletInventory[nameBullet];
+
+                        if (amountBullets[index] > 24)
+                        {
+                            redundant = amountBullets[index] - 24;
+                            amountBullets[index] = 24;
+                        }
+                        else { redundant = 12; }
+                        int tmp = (int)bulletInventory[nameBullet] - redundant;
+                        bulletInventory[nameBullet] = tmp;
+
+                    }
+                    if (bulletInventory[nameBullet] == null || bulletInventory == null)
+                        Debug.Log("Out of bullet");
+
+                }
+            }
+            else if (amountBullets[index] >= 24)
+            {
+                Debug.Log("Bullet is full !" + amountBullets[index]);
+            }
+        }
     }
 
     IEnumerator WaitForReload(float seconds, int bulletIndex, string currentGunName)
@@ -329,6 +374,12 @@ public class Shooter : MonoBehaviour
         {
             case "Pistol":
                 amountBullets[bulletIndex] = 12;
+                break;
+            case "Shotgun":
+                amountBullets[bulletIndex] = 6;
+                break;
+            case "Riffle":
+                amountBullets[bulletIndex] = 24;
                 break;
         }
         numberOfBullets.text = amountBullets[currentIndexWeapon].ToString();
@@ -341,6 +392,7 @@ public class Shooter : MonoBehaviour
 
     void SwapWeapon()
     {
+
         if (Input.GetKeyDown(KeyCode.Q))
         {
             if (currentIndexWeapon < totalWeapon - 1)
@@ -354,7 +406,7 @@ public class Shooter : MonoBehaviour
             else
             {
                 guns[currentIndexWeapon].SetActive(false);
-                currentIndexWeapon = 1;
+                currentIndexWeapon = 2;
                 guns[currentIndexWeapon].SetActive(true);
                 currentGun = guns[currentIndexWeapon];
                 numberOfBullets.text = amountBullets[currentIndexWeapon].ToString();
@@ -363,7 +415,7 @@ public class Shooter : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (currentIndexWeapon > 1)
+            if (currentIndexWeapon > 2)
             {
                 guns[currentIndexWeapon].SetActive(false);
                 currentIndexWeapon--;
@@ -384,6 +436,7 @@ public class Shooter : MonoBehaviour
         if (currentGun.name.Equals("Pistol"))
         {
             numberOfBulletsInventory.text = "Max";
+            damage.damage = 20;
         }
         else if (currentGun.name.Equals("Shotgun"))
         {
@@ -392,6 +445,16 @@ public class Shooter : MonoBehaviour
             else
 
                 numberOfBulletsInventory.text = "0";
+            damage.damage = 40;
+        }
+        else if (currentGun.name.Equals("Riffle"))
+        {
+            if (bulletInventory.ContainsKey("Riffle"))
+                numberOfBulletsInventory.text = bulletInventory["RiffleBullet"].ToString();
+            else
+
+                numberOfBulletsInventory.text = "0";
+            damage.damage = 25;
         }
     }
 

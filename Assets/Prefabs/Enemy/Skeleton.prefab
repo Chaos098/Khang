@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3974821330784594096}
   - component: {fileID: 2691256563923412962}
   - component: {fileID: 8715907247090787056}
-  m_Layer: 12
+  m_Layer: 14
   m_Name: Skeleton
   m_TagString: EnemySkeleton
   m_Icon: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   whatisPlayer:
     serializedVersion: 2
     m_Bits: 128
-  moveSpeed: 3.5
+  moveSpeed: 2
   idleTime: 2
   battleTime: 2
   attackDistance: 2.22
@@ -158,7 +158,7 @@ MonoBehaviour:
   damage: 20
   critChance: 0
   critPower: 0
-  maxHealth: 150
+  maxHealth: 400
   armor: 5
   currentHealth: 0
 --- !u!114 &8715907247090787056
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 86725623540019887}
   - component: {fileID: 2588483076738398738}
   - component: {fileID: 8785426123279834267}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -264,7 +264,7 @@ GameObject:
   - component: {fileID: 6954523680833167275}
   - component: {fileID: 5007015383944782869}
   - component: {fileID: 6627872127010014534}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -380,7 +380,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 634588157102144524}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -421,7 +421,7 @@ GameObject:
   - component: {fileID: 3552042161644546504}
   - component: {fileID: 5105765892437415952}
   - component: {fileID: 9202154092879621811}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7416310847576224194}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -563,7 +563,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4980752086018249200}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -596,7 +596,7 @@ GameObject:
   - component: {fileID: 7665121491446592633}
   - component: {fileID: 6321222487880654100}
   - component: {fileID: 2109694084101201274}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -669,7 +669,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8102850144652296875}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: AttackCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -701,7 +701,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7794652816847244016}
   - component: {fileID: 695782080822660545}
-  m_Layer: 5
+  m_Layer: 14
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -196,6 +196,7 @@ GameObject:
   - component: {fileID: 6296234874804032518}
   - component: {fileID: 1801156404988550175}
   - component: {fileID: 3234718518377665853}
+  - component: {fileID: 4183450565657764533}
   m_Layer: 8
   m_Name: Boss
   m_TagString: Boss
@@ -298,8 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017ae61598715a748a91bdce4b1cd1dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  knockbackPower: {x: 7, y: 12}
-  knockbackOffset: {x: 0.75, y: 1.11}
+  knockbackDirection: {x: 0, y: 0}
   knockbackDuration: 0
   attackCheck: {fileID: 5687978603165187823}
   attackCheckRadius: 2.08
@@ -358,6 +358,29 @@ MonoBehaviour:
   hitMat: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   hitFx: {fileID: 3840755032751004251}
   criticalHitFx: {fileID: 0}
+--- !u!114 &4183450565657764533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3840755032751004251}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2468c89488dcb0c4f8f8b80eae143cb6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  strength: 20
+  agility: 0
+  intelligence: 0
+  evasion: 0
+  vitality: 0
+  damage: 0
+  critChance: 0
+  critPower: 0
+  maxHealth: 800
+  armor: 15
+  currentHealth: 0
 --- !u!1 &4360788688613260010
 GameObject:
   m_ObjectHideFlags: 0

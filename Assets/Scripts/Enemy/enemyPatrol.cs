@@ -17,7 +17,7 @@ public class enemyPatrol : MonoBehaviour
     private Transform currentPoint;
     Vector3 localScale;
 
-    float hp = 100;
+    float hp = 400;
     public float speed;
     float timer;
 
@@ -40,6 +40,7 @@ public class enemyPatrol : MonoBehaviour
         if (!isPlayerDetected && !onDamaged)
         {
             autoMoving();
+            gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
 
 
@@ -54,7 +55,6 @@ public class enemyPatrol : MonoBehaviour
         if (!isDead && !isPlayerDetected)
         {
             anim.SetBool("isMoving", true);
-            gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
         }
 
         // Animation when get hurt
@@ -86,7 +86,6 @@ public class enemyPatrol : MonoBehaviour
         isPlayerDetected = true;
 
         hp -= Damage;
-        Debug.Log("enemy" + hp);
         if (hp <= 0)
         {
             isDead = true;
@@ -94,17 +93,6 @@ public class enemyPatrol : MonoBehaviour
     }
 
     // Detecting Player
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.transform == player)
-        {
-            isPlayerDetected = true;
-            (gameObject.transform.GetChild(1).GetComponent("EnemyGunRotate") as MonoBehaviour).enabled = true;
-        }
-
-    }
-
-
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -117,12 +105,13 @@ public class enemyPatrol : MonoBehaviour
         {
             rb.isKinematic = true;
             isPlayerDetected = true;
+            (gun.GetComponent<EnemyGunRotate>() as MonoBehaviour).enabled = true;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D other)
+    private void OnTriggerExit2D(Collider2D collision)
     {
-        if (other.transform == player)
+        if (!collision.CompareTag("Player"))
         {
             isPlayerDetected = false;
             (gameObject.transform.GetChild(1).GetComponent("EnemyGunRotate") as MonoBehaviour).enabled = false;
@@ -133,7 +122,7 @@ public class enemyPatrol : MonoBehaviour
     {
         if (player.transform.position.x > gameObject.transform.position.x)
         {
-            if (localScale.x < 0)
+            if (localScale.x > 0)
             {
                 localScale.x *= -1;
                 transform.localScale = localScale;
@@ -144,6 +133,11 @@ public class enemyPatrol : MonoBehaviour
         {
             if (localScale.x > 0)
             {
+                localScale.x *= 1;
+                transform.localScale = localScale;
+            }
+            else
+            {
                 localScale.x *= -1;
                 transform.localScale = localScale;
             }
@@ -153,7 +147,7 @@ public class enemyPatrol : MonoBehaviour
 
     private void detectedAnimation()
     {
-        flip();
+        //flip();
 
         if (timer > 1f)
         {
@@ -203,17 +197,12 @@ public class enemyPatrol : MonoBehaviour
 
 
         // Back to movement line after being damaged
-        if (currentPoint == pointA.transform && localScale.x > 0)
+        if ((currentPoint == pointA.transform && localScale.x > 0) || (currentPoint == pointB.transform && localScale.x < 0))
         {
             localScale.x *= -1;
             transform.localScale = localScale;
         }
 
-        if (currentPoint == pointB.transform && localScale.x < 0)
-        {
-            localScale.x *= -1;
-            transform.localScale = localScale;
-        }
     }
 
 

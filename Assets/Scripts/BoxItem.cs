@@ -6,8 +6,9 @@ using UnityEngine;
 public class BoxItem : MonoBehaviour
 {
     Animator anim;
-    Collider2D col;
     int random;
+    Vector2 pos;
+    public float seconds = 7f;
 
 
 
@@ -16,7 +17,6 @@ public class BoxItem : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         random = Random.Range(0,100);  
-        col = GetComponent<Collider2D>();
     }
 
 
@@ -39,10 +39,22 @@ public class BoxItem : MonoBehaviour
                     break;
 
                 case false:
-                    collision.SendMessageUpwards("AddBullet", "ShotgunBullet");
+                    random = Random.Range(0, 100);
+
+                    switch (random % 2 == 0)
+                    {
+                        case true:
+                            collision.SendMessageUpwards("AddBullet", "ShotgunBullet");
+                            break;
+                        case false:
+                            collision.SendMessageUpwards("AddBullet", "RiffleBullet");
+                            break;
+
+                    }
+
                     break;
             }
-            col.enabled = false;
+            StartCoroutine(Respawn());
         }
 
     }
@@ -50,5 +62,15 @@ public class BoxItem : MonoBehaviour
     private void OnTriggerExit2D(Collider2D collision)
     {
         anim.SetBool("isTouching", false);
+    }
+
+    IEnumerator Respawn()
+    {
+        yield return new WaitForSeconds(1f);
+        gameObject.transform.position = Vector2.zero;
+        yield return new WaitForSeconds(seconds);
+        //Instantiate(gameObject, gameObject.transform.position, gameObject.transform.rotation);
+        gameObject.transform.position = pos;
+
     }
 }

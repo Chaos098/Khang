@@ -5,9 +5,10 @@ using UnityEngine;
 public class Fire : MonoBehaviour
 {
     // Start is called before the first frame update
-    public float firespeed, damage;
+    public int firespeed, damage;
     public GameObject dustShootEffect;
     private GameObject dustShoot;
+
 
 
     // Update is called once per frame
@@ -31,17 +32,6 @@ public class Fire : MonoBehaviour
             collision.SendMessageUpwards("OnDamaged", damage);
         }
 
-        //if (collision.CompareTag("EnemySkeleton"))
-        //{
-        //    Destroy(gameObject);
-        //    Enemy enemySkeleton = collision.GetComponent<Enemy>();
-        //    CharacterBossStats stats = collision.GetComponent<CharacterBossStats>();
-        //    if (enemySkeleton != null)
-        //    {
-        //        stats.TakeDamage(stats,20); // V? d?: damage = 20, damageType = "Fire"
-        //    }
-        //}
-
         if (collision.CompareTag("Boss"))
         {
             Destroy(gameObject);
@@ -49,7 +39,7 @@ public class Fire : MonoBehaviour
             CharacterStats stats = collision.GetComponent<CharacterStats>();
             if (boss != null)
             {
-                stats.TakeDamage(stats, 20); // V? d?: damage = 20, damageType = "Fire"
+                stats.TakeDamage(stats, damage); // V? d?: damage = 20, damageType = "Fire"
             }
         }
         if (collision.CompareTag("EnemySkeleton"))
@@ -59,7 +49,8 @@ public class Fire : MonoBehaviour
             CharacterStats stats = collision.GetComponent<CharacterStats>();
             if (boss != null)
             {
-                stats.TakeDamage(stats, 20); // V? d?: damage = 20, damageType = "Fire"
+                boss.SetupKnockbackDir(PlayerManager.instance.player.transform);
+                stats.TakeDamage(stats, damage); // V? d?: damage = 20, damageType = "Fire"
             }
         }
     }

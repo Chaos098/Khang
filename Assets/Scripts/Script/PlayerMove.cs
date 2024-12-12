@@ -97,6 +97,7 @@ public class PlayerMove : MonoBehaviour
 
 
         HP_Bar.updateHPBar(recentHP, maxHP);
+        Health();
 
     }
 
@@ -154,16 +155,6 @@ public class PlayerMove : MonoBehaviour
             anim.SetBool("isMoving", true);
         }
 
-        if (dirY == 0 || isGrounded)
-        {
-            anim.SetBool("isClimbing", false);
-        }
-
-        if (Mathf.Abs(dirY) == 4.5 && rb.velocity.x == 0 )
-        {
-            anim.SetBool("isClimbing", true);
-        }
-
         if (onDamaged)
         {
             anim.SetBool("isHurt", true);
@@ -209,6 +200,7 @@ public class PlayerMove : MonoBehaviour
         {
             recentHP = maxHP;
             numberOfFistAid -= 1;
+            numberOfFistKits.text = numberOfFistAid.ToString();
         }
     }
 
