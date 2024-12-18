@@ -85,7 +85,6 @@ public class Shooter : MonoBehaviour
 
         // Change weapon
         SwapWeapon();
-        Debug.Log(bulletInventory["RiffleBullet"]);
 
 
         // Shooting action
@@ -103,7 +102,6 @@ public class Shooter : MonoBehaviour
             }
 
 
-            Debug.Log(amountBullets[index]);
 
             // If shoot bullet decrease
             if (amountBullets[index] == 0)
@@ -220,6 +218,8 @@ public class Shooter : MonoBehaviour
             if (bulletName.Contains("ShotgunBullet"))
             {
                 bulletInventory.Add("ShotgunBullet", 2);
+                numberOfBulletsInventory.text = bulletInventory["ShotgunBullet"].ToString();
+                
             }
         }
         else
@@ -228,6 +228,7 @@ public class Shooter : MonoBehaviour
             {
                 int tmp = (int)bulletInventory["ShotgunBullet"] + 2;
                 bulletInventory["ShotgunBullet"] = tmp;
+                numberOfBulletsInventory.text = bulletInventory["ShotgunBullet"].ToString();
             }
         }
 
@@ -235,17 +236,21 @@ public class Shooter : MonoBehaviour
         // Inventory for riffle bullet
         if (!bulletInventory.ContainsKey("RiffleBullet"))
         {
-            if (bulletName.Contains("RiffleBullet"))
+            if (bulletName.Contains("Riffle"))
             {
                 bulletInventory.Add("RiffleBullet", 12);
+                numberOfBulletsInventory.text = bulletInventory["RiffleBullet"].ToString();
+                Debug.Log((int)bulletInventory["RiffleBullet"]);
             }
+            Debug.Log((int)bulletInventory["RiffleBullet"]);
         }
         else
         {
-            if (bulletName.Contains("RiffleBullet"))
+            if (bulletName.Equals("RiffleBullet"))
             {
                 int tmp = (int)bulletInventory["RiffleBullet"] + 12;
                 bulletInventory["RiffleBullet"] = tmp;
+                numberOfBulletsInventory.text = bulletInventory["RiffleBullet"].ToString();
             }
         }
 
@@ -270,7 +275,7 @@ public class Shooter : MonoBehaviour
                     if (amountBullets[i] < 12)
                     {
                         StartCoroutine(WaitForReload(1f, i, currentGun.name));
-
+                        amountBullets[i] = 12;
                     }
                 }
             }
@@ -295,8 +300,11 @@ public class Shooter : MonoBehaviour
                     {
                         StartCoroutine(WaitForReload(2f, index, currentGun.name));
 
-                        if ((int)bulletInventory[nameBullet] >= 2)
+                        if((int)bulletInventory[nameBullet] >= 2)
+                        {
                             amountBullets[index] += 2;
+                            bulletInventory[nameBullet] = (int)bulletInventory[nameBullet] - 2;
+                        }
                         else
                             amountBullets[index] += (int)bulletInventory[nameBullet];
 
@@ -305,8 +313,8 @@ public class Shooter : MonoBehaviour
                             redundant = amountBullets[index] - 6;
                             amountBullets[index] = 6;
                         }
-                        else { redundant = 2; }
-                        int tmp = (int)bulletInventory[nameBullet] - redundant;
+                        else { redundant = 0; }
+                        int tmp = (int)bulletInventory[nameBullet] + redundant;
                         bulletInventory[nameBullet] = tmp;
 
                     }
@@ -340,7 +348,10 @@ public class Shooter : MonoBehaviour
                         StartCoroutine(WaitForReload(2f, index, currentGun.name));
 
                         if ((int)bulletInventory[nameBullet] >= 12)
+                        {
                             amountBullets[index] += 12;
+                            bulletInventory[nameBullet] = (int)bulletInventory[nameBullet] - 12;
+                        }
                         else
                             amountBullets[index] += (int)bulletInventory[nameBullet];
 
@@ -349,8 +360,8 @@ public class Shooter : MonoBehaviour
                             redundant = amountBullets[index] - 24;
                             amountBullets[index] = 24;
                         }
-                        else { redundant = 12; }
-                        int tmp = (int)bulletInventory[nameBullet] - redundant;
+                        else { redundant = 0; }
+                        int tmp = (int)bulletInventory[nameBullet] + redundant;
                         bulletInventory[nameBullet] = tmp;
 
                     }
@@ -370,18 +381,18 @@ public class Shooter : MonoBehaviour
     {
         Reload_Bar.updateBar(seconds);
         yield return new WaitForSeconds(seconds);
-        switch (currentGunName)
-        {
-            case "Pistol":
-                amountBullets[bulletIndex] = 12;
-                break;
-            case "Shotgun":
-                amountBullets[bulletIndex] = 6;
-                break;
-            case "Riffle":
-                amountBullets[bulletIndex] = 24;
-                break;
-        }
+        //switch (currentGunName)
+        //{
+        //    case "Pistol":
+        //        amountBullets[bulletIndex] = 12;
+        //        break;
+        //    case "Shotgun":
+        //        amountBullets[bulletIndex] = 2;
+        //        break;
+        //    case "Riffle":
+        //        amountBullets[bulletIndex] = 24;
+        //        break;
+        //}
         numberOfBullets.text = amountBullets[currentIndexWeapon].ToString();
 
     }
@@ -449,7 +460,7 @@ public class Shooter : MonoBehaviour
         }
         else if (currentGun.name.Equals("Riffle"))
         {
-            if (bulletInventory.ContainsKey("Riffle"))
+            if (bulletInventory.ContainsKey("RiffleBullet"))
                 numberOfBulletsInventory.text = bulletInventory["RiffleBullet"].ToString();
             else
 

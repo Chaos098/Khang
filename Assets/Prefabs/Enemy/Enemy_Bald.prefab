@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2584977622718827343}
   - component: {fileID: 5643930447072197}
   - component: {fileID: 3140634211667592994}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: DetectPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -122,7 +122,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4031552041214381492}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: StartDustShoot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -153,7 +153,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 173859363462834687}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PointA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -189,7 +189,7 @@ GameObject:
   - component: {fileID: 1127390883417783616}
   - component: {fileID: 1549839051855702796}
   - component: {fileID: 7211951259237883788}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Bald
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -387,7 +387,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5710453905310725860}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: BulletEffectPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -418,7 +418,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2387942347357877539}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: PointB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 1553112374210863773}
   - component: {fileID: 1756809272144373629}
   - component: {fileID: 7433940534214025525}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: 'Pistol '
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -573,7 +573,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8344716894487943496}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: StartPos
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2249498967106111764}
-  m_Layer: 11
+  m_Layer: 13
   m_Name: Enemy_Bald
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] GameObject guide;
     public void PlayGame()
     {
         SceneManager.LoadSceneAsync(1);
@@ -16,5 +17,15 @@ public class MainMenu : MonoBehaviour
         Debug.Log("hell");
         Application.Quit();
         //EditorApplication.isPlaying = false;
+    }
+
+    public void Guide()
+    {
+        guide.SetActive(true);
+    }
+
+    public void Exit()
+    {
+        guide.SetActive(false);
     }
 }

@@ -32,7 +32,7 @@ public class DeathBringerIdleState : BossState
     {
         base.Update();
 
-        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 20)
+        if (Vector2.Distance(player.transform.position, enemy.transform.position) < 10)
             enemy.bossFightBegun = true;
 
         if (Input.GetKeyDown(KeyCode.V))

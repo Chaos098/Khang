@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class DeathBringerDeadState : BossState
@@ -25,6 +24,10 @@ public class DeathBringerDeadState : BossState
         base.Update();
 
         if (stateTimer > 0)
+        {
             rb.velocity = new Vector2(0, 10);
+            SceneManager.LoadSceneAsync("End");
+
+        }
     }
 }
