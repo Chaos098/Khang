@@ -4,64 +4,68 @@ using UnityEngine;
 
 public class enemyPatrol : MonoBehaviour
 {
-    public Transform player; // Reference to the player object
+    private Transform player; // Reference to the player object
     private bool onDamaged, isPlayerDetected = false, isDead = false; // Flag to check if the player is detected
 
     GameObject dustShootEffect;
-    public GameObject pointA, pointB, gun, bullet, dustShoot;
+    public GameObject gun;
+    public GameObject bullet;
+    public GameObject dustShoot;
 
     private Rigidbody2D rb;
     private Animator anim;
+    public GameObject groundCheck;
+    public LayerMask groundLayer;
 
     public Transform startBullet;
-    private Transform currentPoint;
-    Vector3 localScale;
 
-    float hp = 400;
+    public float hp = 400;
     public float speed;
+    public float circleRadius;
+    public float shootingRange;
+
+    public bool facingRight;
+    public bool isGrounded;
     float timer;
 
     // Start is called before the first frame update
     void Start()
     {
-        localScale = transform.localScale;
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
-        currentPoint = pointB.transform;
         anim.SetBool("isMoving", true);
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
 
     void Update()
     {
         timer += Time.deltaTime;
+        float distanceFromPlayer = Vector2.Distance(player.position, transform.position);
 
         // Automatically move
-        if (!isPlayerDetected && !onDamaged)
+        autoMoving();
+
+        // Detected player
+        if (distanceFromPlayer <= shootingRange)
         {
-            autoMoving();
-            gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            isPlayerDetected = true;
         }
-
-
+        else isPlayerDetected = false;
 
         if (isPlayerDetected)
         {
             detectedAnimation();
         }
+        else
+            (gun.GetComponent<EnemyGunRotate>() as MonoBehaviour).enabled = false;
 
-
-
-        if (!isDead && !isPlayerDetected)
-        {
-            anim.SetBool("isMoving", true);
-        }
 
         // Animation when get hurt
         if (onDamaged)
         {
-            detectedAnimation();
             anim.SetBool("isHurt", true);
+            StartCoroutine(UnDamaged());
         }
 
         if (!onDamaged)
@@ -77,14 +81,41 @@ public class enemyPatrol : MonoBehaviour
 
     }
 
+    private void autoMoving()
+    {
+        anim.SetBool("isMoving", true);
+        rb.velocity = Vector2.right * speed * Time.deltaTime;
+        isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, circleRadius, groundLayer);
+        if (!isGrounded && facingRight)
+        {
+            Flip();
+        }
+        else if (!isGrounded && !facingRight)
+        {
+            Flip();
+        }
+
+    }
+
+    void Flip()
+    {
+        facingRight = !facingRight;
+        gameObject.transform.Rotate(new Vector3(0, 180, 0));
+        speed = -speed;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(groundCheck.transform.position, circleRadius);
+        Gizmos.DrawWireSphere(transform.position, shootingRange);
+    }
 
 
 
     public void OnDamaged(float Damage)
     {
         onDamaged = true;
-        isPlayerDetected = true;
-
         hp -= Damage;
         if (hp <= 0)
         {
@@ -92,62 +123,17 @@ public class enemyPatrol : MonoBehaviour
         }
     }
 
-    // Detecting Player
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Bullet"))
-        {
-            onDamaged = false;
-        }
-
-        if (collision.CompareTag("Player"))
-        {
-            rb.isKinematic = true;
-            isPlayerDetected = true;
-            (gun.GetComponent<EnemyGunRotate>() as MonoBehaviour).enabled = true;
-        }
-    }
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (!collision.CompareTag("Player"))
-        {
-            isPlayerDetected = false;
-            (gameObject.transform.GetChild(1).GetComponent("EnemyGunRotate") as MonoBehaviour).enabled = false;
-        }
-    }
-
-    private void flip()
-    {
-        if (player.transform.position.x > gameObject.transform.position.x)
-        {
-            if (localScale.x > 0)
-            {
-                localScale.x *= -1;
-                transform.localScale = localScale;
-            }
-        }
-
-        if (player.transform.position.x < gameObject.transform.position.x)
-        {
-            if (localScale.x > 0)
-            {
-                localScale.x *= 1;
-                transform.localScale = localScale;
-            }
-            else
-            {
-                localScale.x *= -1;
-                transform.localScale = localScale;
-            }
-        }
-    }
-
-
     private void detectedAnimation()
     {
-        //flip();
+        rb.velocity = new Vector2(0, 0);
+        anim.SetBool("isMoving", false);
+
+        (gun.GetComponent<EnemyGunRotate>() as MonoBehaviour).enabled = true;
+
+        if (Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(player.transform.position)).x < transform.position.x && facingRight)
+            Flip();
+        else if (Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(player.transform.position)).x > transform.position.x && !facingRight)
+            Flip();
 
         if (timer > 1f)
         {
@@ -158,60 +144,13 @@ public class enemyPatrol : MonoBehaviour
         }
 
         Destroy(dustShootEffect, 1f);
-        rb.velocity = new Vector2(0, 0);
-        anim.SetBool("isMoving", false);
     }
-
-    private void autoMoving()
-    {
-        Vector3 localScale = transform.localScale;
-
-        // Moving from A -> B & B -> A
-        if (currentPoint == pointB.transform)
-        {
-            rb.velocity = new Vector2(speed, 0);
-        }
-        else
-        {
-            rb.velocity = new Vector2(-speed, 0);
-        }
-
-
-        // Rotate when reach edge point
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointB.transform)
-        {
-            localScale.x *= -1;
-            transform.localScale = localScale;
-
-            currentPoint = pointA.transform;
-        }
-
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointA.transform)
-        {
-            localScale.x *= -1;
-            transform.localScale = localScale;
-
-            currentPoint = pointB.transform;
-        }
-
-
-
-        // Back to movement line after being damaged
-        if ((currentPoint == pointA.transform && localScale.x > 0) || (currentPoint == pointB.transform && localScale.x < 0))
-        {
-            localScale.x *= -1;
-            transform.localScale = localScale;
-        }
-
-    }
-
 
     void shooting()
     {
         GameObject shoot = Instantiate(bullet, gun.transform.GetChild(0).position, gun.transform.GetChild(0).rotation);
         Destroy(shoot, 3f);
     }
-
 
     IEnumerator DeadAnimation(float seconds)
     {
@@ -224,16 +163,62 @@ public class enemyPatrol : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-
-    private void OnDrawGizmos()
+    IEnumerator UnDamaged()
     {
-        Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
-        Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+        yield return new WaitForSeconds(0.5f);
+        onDamaged = false;
     }
+
 
 
 }
 
 
 
+
+
+
+
+
+
+
+
+
+//Vector3 localScale = transform.localScale;
+
+//// Moving from A -> B & B -> A
+//if (currentPoint == pointB.transform)
+//{
+//    rb.velocity = new Vector2(speed, 0);
+//}
+//else
+//{
+//    rb.velocity = new Vector2(-speed, 0);
+//}
+
+
+//// Rotate when reach edge point
+//if (Vector2.Distance(transform.position, currentPoint.position) < distance && currentPoint == pointB.transform)
+//{
+//    localScale.x *= -1;
+//    transform.localScale = localScale;
+
+//    currentPoint = pointA.transform;
+//}
+
+//if (Vector2.Distance(transform.position, currentPoint.position) < distance && currentPoint == pointA.transform)
+//{
+//    localScale.x *= -1;
+//    transform.localScale = localScale;
+
+//    currentPoint = pointB.transform;
+//}
+
+
+
+//// Back to movement line after being damaged
+//if ((currentPoint == pointA.transform && localScale.x > 0) || (currentPoint == pointB.transform && localScale.x < 0))
+//{
+//    localScale.x *= -1;
+//    transform.localScale = localScale;
+//}

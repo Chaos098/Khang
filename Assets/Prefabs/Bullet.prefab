@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firespeed: 20
-  damage: 13
+  damage: 20
   dustShootEffect: {fileID: 5511511323485214282, guid: 9adecceff0b904eebb1a5aa0c50c0a66, type: 3}
 --- !u!50 &8169180219265147185
 Rigidbody2D:

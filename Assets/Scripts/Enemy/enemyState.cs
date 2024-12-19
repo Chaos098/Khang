@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class enemyState 
+public class enemyState : IState
 {
     // Start is called before the first frame update
     public enemy enemyBase;

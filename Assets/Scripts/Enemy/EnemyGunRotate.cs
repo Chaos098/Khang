@@ -23,14 +23,11 @@ public class EnemyGunRotate : MonoBehaviour
         float gunangle = Mathf.Atan2(playerPos.y, playerPos.x) * Mathf.Rad2Deg;
         if (Camera.main.ScreenToWorldPoint(Camera.main.WorldToScreenPoint(player.transform.position)).x < transform.position.x)
         {
-            transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, -gunangle));
-            gunRotate.rotation = Quaternion.Euler(new Vector3(0f, 180f, gunangle));
+            transform.rotation = Quaternion.Euler(new Vector3(0f, 180f, gunangle));
         }
         else
         {
-            
             transform.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunangle));
-            gunRotate.rotation = Quaternion.Euler(new Vector3(0f, 0f, gunangle));
 
         }
     }
