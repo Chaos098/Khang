@@ -57,6 +57,7 @@ public class PlayerMove : MonoBehaviour
 
         moveInput = Input.GetAxisRaw("Horizontal");
         dirX = moveInput * moveSpeed;
+        rb.velocity = new Vector2(dirX, rb.velocity.y);
 
         /*** Check if player is grounded ***/
         isGrounded = Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);

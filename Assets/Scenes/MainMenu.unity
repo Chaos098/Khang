@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &223799784
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2007,7 +2007,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -198, y: 280}
+  m_AnchoredPosition: {x: -198, y: 298}
   m_SizeDelta: {x: 1272.125, y: 86.255}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1700415800
@@ -2033,7 +2033,7 @@ MonoBehaviour:
   m_text: "[WSAD] - Di chuy\u1EC3n\n\n[Nh\u1EA5n chu\u1ED9t tr\xE1i] - B\u1EAFn /
     Ng\u1EAFm\n\n[Q] v\xE0 [E] - \u0110\u1ED5i v\u0169 kh\xED \n\n[R] - N\u1EA1p
     \u0111\u1EA1n \n\n[F] - Nh\u1EB7t v\u1EADt ph\u1EA9m\n\n[TAB] - S\u1EED d\u1EE5ng
-    h\u1ED9p c\u1EE9u th\u01B0\u01A1ng"
+    h\u1ED9p c\u1EE9u th\u01B0\u01A1ng\n\n[SHIFT] - D\xF9ng \u0111\u1EC3 l\u01B0\u1EDBt"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 67be485df6a014c9c9ce35482d948066, type: 2}
   m_sharedMaterial: {fileID: -4857491513094139733, guid: 67be485df6a014c9c9ce35482d948066, type: 2}
@@ -2060,8 +2060,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 52
-  m_fontSizeBase: 52
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
