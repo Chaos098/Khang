@@ -90,7 +90,7 @@ public class enemyPatrol : MonoBehaviour
     private void autoMoving()
     {
         anim.SetBool("isMoving", true);
-        rb.velocity = Vector2.right * speed * Time.deltaTime;
+        rb.velocity = new Vector2(speed, rb.velocity.y);
         isGrounded = Physics2D.OverlapCircle(groundCheck.transform.position, circleRadius, groundLayer);
         if (!isGrounded && facingRight)
         {
@@ -178,53 +178,3 @@ public class enemyPatrol : MonoBehaviour
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//Vector3 localScale = transform.localScale;
-
-//// Moving from A -> B & B -> A
-//if (currentPoint == pointB.transform)
-//{
-//    rb.velocity = new Vector2(speed, 0);
-//}
-//else
-//{
-//    rb.velocity = new Vector2(-speed, 0);
-//}
-
-
-//// Rotate when reach edge point
-//if (Vector2.Distance(transform.position, currentPoint.position) < distance && currentPoint == pointB.transform)
-//{
-//    localScale.x *= -1;
-//    transform.localScale = localScale;
-
-//    currentPoint = pointA.transform;
-//}
-
-//if (Vector2.Distance(transform.position, currentPoint.position) < distance && currentPoint == pointA.transform)
-//{
-//    localScale.x *= -1;
-//    transform.localScale = localScale;
-
-//    currentPoint = pointB.transform;
-//}
-
-
-
-//// Back to movement line after being damaged
-//if ((currentPoint == pointA.transform && localScale.x > 0) || (currentPoint == pointB.transform && localScale.x < 0))
-//{
-//    localScale.x *= -1;
-//    transform.localScale = localScale;
-//}

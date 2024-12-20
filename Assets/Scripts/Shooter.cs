@@ -274,7 +274,7 @@ public class Shooter : MonoBehaviour
                 {
                     if (amountBullets[i] < 12)
                     {
-                        StartCoroutine(WaitForReload(1f, i, currentGun.name));
+                        StartCoroutine(WaitForReload(1f));
                         amountBullets[i] = 12;
                     }
                 }
@@ -298,7 +298,7 @@ public class Shooter : MonoBehaviour
                 {
                     if (nameBullet.Contains(currentGun.name) && (int)bulletInventory[nameBullet] > 0)
                     {
-                        StartCoroutine(WaitForReload(2f, index, currentGun.name));
+                        StartCoroutine(WaitForReload(2f));
 
                         if((int)bulletInventory[nameBullet] >= 2)
                         {
@@ -345,7 +345,7 @@ public class Shooter : MonoBehaviour
                 {
                     if (nameBullet.Contains(currentGun.name) && (int)bulletInventory[nameBullet] > 0)
                     {
-                        StartCoroutine(WaitForReload(2f, index, currentGun.name));
+                        StartCoroutine(WaitForReload(2f));
 
                         if ((int)bulletInventory[nameBullet] >= 12)
                         {
@@ -377,22 +377,10 @@ public class Shooter : MonoBehaviour
         }
     }
 
-    IEnumerator WaitForReload(float seconds, int bulletIndex, string currentGunName)
+    IEnumerator WaitForReload(float seconds)
     {
         Reload_Bar.updateBar(seconds);
         yield return new WaitForSeconds(seconds);
-        //switch (currentGunName)
-        //{
-        //    case "Pistol":
-        //        amountBullets[bulletIndex] = 12;
-        //        break;
-        //    case "Shotgun":
-        //        amountBullets[bulletIndex] = 2;
-        //        break;
-        //    case "Riffle":
-        //        amountBullets[bulletIndex] = 24;
-        //        break;
-        //}
         numberOfBullets.text = amountBullets[currentIndexWeapon].ToString();
 
     }
