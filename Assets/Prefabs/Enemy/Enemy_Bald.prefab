@@ -282,7 +282,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   startBullet: {fileID: 8344716894487943496}
-  hp: 400
+  hp: 200
   speed: 200
   circleRadius: 0.09
   shootingRange: 5.13

@@ -236,7 +236,7 @@ public class Shooter : MonoBehaviour
         // Inventory for riffle bullet
         if (!bulletInventory.ContainsKey("RiffleBullet"))
         {
-            if (bulletName.Contains("Riffle"))
+            if (bulletName.Contains("RiffleBullet"))
             {
                 bulletInventory.Add("RiffleBullet", 12);
                 numberOfBulletsInventory.text = bulletInventory["RiffleBullet"].ToString();
@@ -246,7 +246,7 @@ public class Shooter : MonoBehaviour
         }
         else
         {
-            if (bulletName.Equals("RiffleBullet"))
+            if (bulletName.Contains("RiffleBullet"))
             {
                 int tmp = (int)bulletInventory["RiffleBullet"] + 12;
                 bulletInventory["RiffleBullet"] = tmp;

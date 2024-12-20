@@ -58,7 +58,13 @@ public class enemyPatrol : MonoBehaviour
             detectedAnimation();
         }
         else
+        {
+            if (facingRight)
+                gun.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            else
+                gun.transform.rotation = Quaternion.Euler(new Vector3(0, 180f, 0));
             (gun.GetComponent<EnemyGunRotate>() as MonoBehaviour).enabled = false;
+        }
 
 
         // Animation when get hurt
